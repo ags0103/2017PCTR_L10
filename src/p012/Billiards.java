@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
 
@@ -19,6 +20,8 @@ public class Billiards extends JFrame {
 	private JButton b_start, b_stop;
 
 	private Board board;
+
+	
 
 	// TODO update with number of group label. See practice statement.
 	private final int N_BALL = 13;
@@ -56,6 +59,12 @@ public class Billiards extends JFrame {
 
 	private void initBalls() {
 		// TODO init balls
+		balls = new Ball[N_BALL];
+		
+		for (int i = 0; i < N_BALL; i++) {
+			Ball bola = new Ball();
+			balls[i] = bola;
+		}
 	}
 
 	private class StartListener implements ActionListener {
@@ -70,7 +79,7 @@ public class Billiards extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Code is executed when stop button is pushed
-
+			
 		}
 	}
 

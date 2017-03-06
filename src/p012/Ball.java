@@ -58,7 +58,7 @@ public class Ball {
 		assert Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx):"Se sale la bola por la izquierda";
 		assert Math.abs(y - Board.TOPBOARD) <  Math.abs(dy):"Se sale la bola por arriba";
 		
-		
+	
 		
 	}
 
