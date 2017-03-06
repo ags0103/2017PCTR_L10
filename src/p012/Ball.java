@@ -31,6 +31,12 @@ public class Ball {
 		x += dx;   
 		y += dy;
 		//TODO Check postcondition
+		assert Math.abs(x - Board.RIGHTBOARD) <  Math.abs(dx):"Se sale la bola por la derecha";
+		assert Math.abs(y - Board.BOTTOMBOARD) <  Math.abs(dy):"Se sale la bola por abajo";
+		assert Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx):"Se sale la bola por la izquierda";
+		assert Math.abs(y - Board.TOPBOARD) <  Math.abs(dy):"Se sale la bola por arriba";
+		
+				
 	}
 
 	public void reflect() {
@@ -46,7 +52,14 @@ public class Ball {
 		if (Math.abs(y - Board.TOPBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
-		//TODO Check postcondition	
+		//TODO Check postcondition
+		assert Math.abs(x - Board.RIGHTBOARD) <  Math.abs(dx):"Se sale la bola por la derecha";
+		assert Math.abs(y - Board.BOTTOMBOARD) <  Math.abs(dy):"Se sale la bola por abajo";
+		assert Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx):"Se sale la bola por la izquierda";
+		assert Math.abs(y - Board.TOPBOARD) <  Math.abs(dy):"Se sale la bola por arriba";
+		
+		
+		
 	}
 
 	public int getX() {
