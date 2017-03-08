@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
  * @author Sheila Merino Briongos
  * @author Andrés García Sáez
  */
+
 public class Ball {
        //TODO  Find an archive named Ball.png 
 	private String Ball = "Ball.png"; 
