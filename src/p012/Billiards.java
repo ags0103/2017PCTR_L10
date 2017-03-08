@@ -3,13 +3,19 @@ package p012;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import p012.Ball;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+/*
+ * @author Sheila Merino Briongos
+ * @author Andrés García Sáez
+ */
 
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
@@ -21,11 +27,12 @@ public class Billiards extends JFrame {
 
 	private Board board;
 
-	
+	private ExecutorService pool;
+	private boolean parada;
 
 	// TODO update with number of group label. See practice statement.
 	private final int N_BALL = 13;
-	private Ball[] balls;
+	private Ball[] balls = new Ball[N_BALL];	
 
 	public Billiards() {
 
@@ -58,28 +65,58 @@ public class Billiards extends JFrame {
 	}
 
 	private void initBalls() {
-		// TODO init balls
-		balls = new Ball[N_BALL];
-		
-		for (int i = 0; i < N_BALL; i++) {
-			Ball bola = new Ball();
-			balls[i] = bola;
+		// TODO init balls			
+		for (int i = 0; i < balls.length; i++) {
+			balls[i] = new Ball();
 		}
 	}
 
+	
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when start button is pushed
+			// TODO Code is executed when stop button is pushed
+			parada = true;
+			class Hilos implements Runnable {
+				Ball ball;
 
-		}
+				
+				private Hilos(Ball ball) {
+					this.ball = ball;
+				}
+
+				public void run() {
+					while (parada) {
+						try {
+							//
+							ball.move();
+							ball.reflect();
+							board.repaint();
+							Thread.sleep(18);
+						} catch (InterruptedException e) {
+							parada=false;
+							return;
+						}
+					}
+				}
+			}//Finaliza Hilos
+		
+			//Ejecutamos un hilo por cada bola y uno más para el main
+			pool = Executors.newFixedThreadPool(N_BALL + 1);
+			board.setBalls(balls);
+
+			for (int i = 0; i < N_BALL; i++) {
+				pool.execute(new Hilos(balls[i]));
+			}		
+		}//Finaliza actionPerformed
 	}
 
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed
-			
+			// TODO Auto-generated method stub
+			pool.shutdown();
+			parada = false;
 		}
 	}
 

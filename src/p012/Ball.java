@@ -3,6 +3,11 @@ package p012;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 //TODO Transform the code to be used safely in a concurrent context.  
+
+/*
+ * @author Sheila Merino Briongos
+ * @author Andrés García Sáez
+ */
 public class Ball {
        //TODO  Find an archive named Ball.png 
 	private String Ball = "Ball.png"; 
@@ -10,7 +15,7 @@ public class Ball {
 	private double x,y,dx,dy;
 	private double v,fi;
 	private Image image;
-
+	
 	public Ball() {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(Ball));
 		image = ii.getImage();
@@ -31,12 +36,10 @@ public class Ball {
 		x += dx;   
 		y += dy;
 		//TODO Check postcondition
-		assert Math.abs(x - Board.RIGHTBOARD) <  Math.abs(dx):"Se sale la bola por la derecha";
-		assert Math.abs(y - Board.BOTTOMBOARD) <  Math.abs(dy):"Se sale la bola por abajo";
-		assert Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx):"Se sale la bola por la izquierda";
-		assert Math.abs(y - Board.TOPBOARD) <  Math.abs(dy):"Se sale la bola por arriba";
 		
-				
+		 
+		compruebaBola(x,y);
+
 	}
 
 	public void reflect() {
@@ -52,15 +55,21 @@ public class Ball {
 		if (Math.abs(y - Board.TOPBOARD) <  Math.abs(dy)) {
 			fi = - fi;
 		}
-		//TODO Check postcondition
-		assert Math.abs(x - Board.RIGHTBOARD) <  Math.abs(dx):"Se sale la bola por la derecha";
-		assert Math.abs(y - Board.BOTTOMBOARD) <  Math.abs(dy):"Se sale la bola por abajo";
-		assert Math.abs(x - Board.LEFTBOARD) <  Math.abs(dx):"Se sale la bola por la izquierda";
-		assert Math.abs(y - Board.TOPBOARD) <  Math.abs(dy):"Se sale la bola por arriba";
 		
-	
-		
+		compruebaBola(x,y);
 	}
+		
+		//TODO Check postcondition
+		/*
+		 * Comprobamos que la bola no se salga de las dimensiones del tablero
+		 */
+        private void compruebaBola(double x, double y){
+            assert x < Board.RIGHTBOARD:"La bola se sale del tablero por la derecha";
+			assert y < Board.BOTTOMBOARD:"La bola se sale del tablero por abajo";
+			assert x > Board.LEFTBOARD:"La bola se sale del tablero por la izquierda";
+			assert y > Board.TOPBOARD:"La bola se sale del tablero por arriba";
+			}
+	        
 
 	public int getX() {
 		return (int)x;
